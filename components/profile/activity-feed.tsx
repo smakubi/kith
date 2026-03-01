@@ -10,7 +10,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
 } from '@/components/ui/dialog'
 import {
-  Phone, MessageCircle, Users, FileText, Cake, Plus, Loader2,
+  Phone, MessageCircle, Mail, Users, FileText, Cake, Plus, Loader2,
 } from 'lucide-react'
 import { formatDate, formatRelativeDate } from '@/lib/utils'
 import { toast } from '@/hooks/use-toast'
@@ -19,6 +19,7 @@ import type { Interaction, InteractionType } from '@/types'
 const TYPE_ICONS: Record<InteractionType, React.FC<any>> = {
   call: Phone,
   message: MessageCircle,
+  email: Mail,
   meetup: Users,
   note: FileText,
   birthday: Cake,
@@ -27,6 +28,7 @@ const TYPE_ICONS: Record<InteractionType, React.FC<any>> = {
 const TYPE_COLORS: Record<InteractionType, string> = {
   call: 'bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400',
   message: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400',
+  email: 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400',
   meetup: 'bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400',
   note: 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400',
   birthday: 'bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400',
@@ -35,6 +37,7 @@ const TYPE_COLORS: Record<InteractionType, string> = {
 const TYPE_LABEL: Record<InteractionType, string> = {
   call: 'Phone call',
   message: 'Message',
+  email: 'Email',
   meetup: 'Meetup',
   note: 'Note',
   birthday: 'Birthday',
@@ -60,6 +63,8 @@ export function ActivityFeed({ interactions, personId, userId }: ActivityFeedPro
       : interactions.filter((i) => {
           if (activeTab === 'notes') return i.type === 'note'
           if (activeTab === 'calls') return i.type === 'call'
+          if (activeTab === 'messages') return i.type === 'message'
+          if (activeTab === 'emails') return i.type === 'email'
           if (activeTab === 'meetups') return i.type === 'meetup'
           return true
         })
@@ -93,6 +98,8 @@ export function ActivityFeed({ interactions, personId, userId }: ActivityFeedPro
             <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="notes">Notes</TabsTrigger>
             <TabsTrigger value="calls">Calls</TabsTrigger>
+            <TabsTrigger value="messages">Messages</TabsTrigger>
+            <TabsTrigger value="emails">Emails</TabsTrigger>
             <TabsTrigger value="meetups">Meetups</TabsTrigger>
           </TabsList>
         </Tabs>

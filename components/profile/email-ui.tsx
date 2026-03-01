@@ -51,8 +51,8 @@ export function EmailUi({ person, userId }: EmailUiProps) {
       await supabase.from('interactions').insert({
         user_id: userId,
         person_id: person.id,
-        type: 'message',
-        note: `Email: ${subject.trim()}\n\n${body.trim()}`,
+        type: 'email',
+        note: `${subject.trim()}\n\n${body.trim()}`,
         occurred_at: new Date().toISOString(),
       })
 
