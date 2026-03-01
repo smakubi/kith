@@ -4,7 +4,7 @@
 
 export type Relation = 'Friend' | 'Family' | 'Mentor' | 'Colleague'
 export type Circle = 'Inner Circle' | 'Close Friends' | 'Social Circle' | 'Reconnect'
-export type InteractionType = 'call' | 'message' | 'meetup' | 'note' | 'birthday'
+export type InteractionType = 'call' | 'message' | 'email' | 'meetup' | 'note' | 'birthday'
 
 export interface User {
   id: string
@@ -80,6 +80,7 @@ export const CIRCLE_ORDER: Circle[] = [
 export const INTERACTION_ICONS: Record<InteractionType, string> = {
   call:     'Phone',
   message:  'MessageCircle',
+  email:    'Mail',
   meetup:   'Users',
   note:     'FileText',
   birthday: 'Cake',
