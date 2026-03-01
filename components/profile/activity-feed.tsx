@@ -25,11 +25,11 @@ const TYPE_ICONS: Record<InteractionType, React.FC<any>> = {
 }
 
 const TYPE_COLORS: Record<InteractionType, string> = {
-  call: 'bg-sky-100 text-sky-600',
-  message: 'bg-emerald-100 text-emerald-600',
-  meetup: 'bg-violet-100 text-violet-600',
-  note: 'bg-amber-100 text-amber-600',
-  birthday: 'bg-rose-100 text-rose-600',
+  call: 'bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400',
+  message: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400',
+  meetup: 'bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400',
+  note: 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400',
+  birthday: 'bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400',
 }
 
 const TYPE_LABEL: Record<InteractionType, string> = {
@@ -103,7 +103,7 @@ export function ActivityFeed({ interactions, personId, userId }: ActivityFeedPro
 
       <div className="space-y-2">
         {filtered.length === 0 ? (
-          <div className="text-center py-10 text-slate-400 text-sm">
+          <div className="text-center py-10 text-slate-400 dark:text-slate-500 text-sm">
             No {activeTab === 'all' ? 'interactions' : activeTab} yet.
           </div>
         ) : (
@@ -113,27 +113,27 @@ export function ActivityFeed({ interactions, personId, userId }: ActivityFeedPro
             return (
               <div
                 key={interaction.id}
-                className="flex gap-3 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50 transition-colors"
+                className="flex gap-3 p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-card hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
               >
                 <div className={`p-2 rounded-lg shrink-0 ${colorClass}`}>
                   <Icon className="h-3.5 w-3.5" strokeWidth={1.8} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-medium text-slate-800">
+                    <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                       {TYPE_LABEL[interaction.type]}
                       {interaction.duration_s && (
-                        <span className="text-slate-400 font-normal ml-1.5">
+                        <span className="text-slate-400 dark:text-slate-500 font-normal ml-1.5">
                           {Math.floor(interaction.duration_s / 60)}m {interaction.duration_s % 60}s
                         </span>
                       )}
                     </span>
-                    <span className="text-xs text-slate-400 shrink-0">
+                    <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">
                       {formatRelativeDate(interaction.occurred_at)}
                     </span>
                   </div>
                   {interaction.note && (
-                    <p className="text-sm text-slate-600 mt-1 leading-relaxed">{interaction.note}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">{interaction.note}</p>
                   )}
                   {interaction.event_url && (
                     <a

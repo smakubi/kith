@@ -82,7 +82,7 @@ export function ReminderSettings({ personId, userId, reminder: initialReminder }
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Check-in Reminder</p>
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Check-in Reminder</p>
       <div className="flex items-center gap-2">
         <Select value={intervalDays} onValueChange={setIntervalDays}>
           <SelectTrigger className="flex-1">
@@ -113,13 +113,13 @@ export function ReminderSettings({ personId, userId, reminder: initialReminder }
             {reminder.enabled ? (
               <Bell className="h-4 w-4 text-rose-500" strokeWidth={1.8} />
             ) : (
-              <BellOff className="h-4 w-4 text-slate-400" strokeWidth={1.8} />
+              <BellOff className="h-4 w-4 text-slate-400 dark:text-slate-500" strokeWidth={1.8} />
             )}
           </Button>
         )}
       </div>
       {reminder?.enabled && (
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-slate-400 dark:text-slate-500">
           Next reminder: {new Date(reminder.next_due_at).toLocaleDateString()}
         </p>
       )}

@@ -96,7 +96,7 @@ export function PeopleTable({ initialPeople }: PeopleTableProps) {
       {/* Toolbar */}
       <div className="flex items-center gap-3 flex-wrap">
         <div className="relative flex-1 min-w-48">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" strokeWidth={1.8} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 dark:text-slate-500" strokeWidth={1.8} />
           <Input
             placeholder="Search people…"
             value={search}
@@ -138,10 +138,10 @@ export function PeopleTable({ initialPeople }: PeopleTableProps) {
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl border border-slate-100 bg-white shadow-sm overflow-hidden">
+      <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-card shadow-sm overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-50 hover:bg-slate-50">
+            <TableRow className="bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/50">
               <TableHead className="w-64">Name</TableHead>
               <TableHead>Relation</TableHead>
               <TableHead>Circle</TableHead>
@@ -154,7 +154,7 @@ export function PeopleTable({ initialPeople }: PeopleTableProps) {
           <TableBody>
             {paginated.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-12 text-slate-400">
+                <TableCell colSpan={7} className="text-center py-12 text-slate-400 dark:text-slate-500">
                   {search || relationFilter !== 'all' || circleFilter !== 'all'
                     ? 'No people match your filters.'
                     : 'No people yet. Add your first contact!'}
@@ -169,7 +169,7 @@ export function PeopleTable({ initialPeople }: PeopleTableProps) {
                         <AvatarImage src={person.avatar_url ?? undefined} />
                         <AvatarFallback className="text-xs">{initials(person.name)}</AvatarFallback>
                       </Avatar>
-                      <span className="font-medium text-slate-900">{person.name}</span>
+                      <span className="font-medium text-slate-900 dark:text-slate-100">{person.name}</span>
                     </Link>
                   </TableCell>
                   <TableCell>
@@ -182,13 +182,13 @@ export function PeopleTable({ initialPeople }: PeopleTableProps) {
                       <Badge variant={CIRCLE_VARIANT[person.circle]}>{person.circle}</Badge>
                     )}
                   </TableCell>
-                  <TableCell className="text-slate-500 text-sm">{person.location ?? '—'}</TableCell>
+                  <TableCell className="text-slate-500 dark:text-slate-400 text-sm">{person.location ?? '—'}</TableCell>
                   <TableCell>
                     <span className={`text-sm font-medium ${lastContactedColor(person.last_contacted_at)}`}>
                       {lastContactedLabel(person.last_contacted_at)}
                     </span>
                   </TableCell>
-                  <TableCell className="text-slate-500 text-sm">{formatBirthday(person.birthday)}</TableCell>
+                  <TableCell className="text-slate-500 dark:text-slate-400 text-sm">{formatBirthday(person.birthday)}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <Button
@@ -197,7 +197,7 @@ export function PeopleTable({ initialPeople }: PeopleTableProps) {
                         title="Log call"
                         onClick={() => logInteraction(person, 'call')}
                       >
-                        <Phone className="h-3.5 w-3.5 text-slate-500" strokeWidth={1.8} />
+                        <Phone className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" strokeWidth={1.8} />
                       </Button>
                       <Button
                         variant="ghost"
@@ -205,12 +205,12 @@ export function PeopleTable({ initialPeople }: PeopleTableProps) {
                         title="Log message"
                         onClick={() => logInteraction(person, 'message')}
                       >
-                        <MessageCircle className="h-3.5 w-3.5 text-slate-500" strokeWidth={1.8} />
+                        <MessageCircle className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" strokeWidth={1.8} />
                       </Button>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon-sm">
-                            <MoreHorizontal className="h-3.5 w-3.5 text-slate-500" strokeWidth={1.8} />
+                            <MoreHorizontal className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" strokeWidth={1.8} />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
@@ -237,7 +237,7 @@ export function PeopleTable({ initialPeople }: PeopleTableProps) {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between text-sm text-slate-500">
+        <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
           <span>
             {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, filtered.length)} of {filtered.length}
           </span>

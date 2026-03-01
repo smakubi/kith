@@ -44,12 +44,11 @@ export function ScheduleModal({ open, onOpenChange, person, userId }: ScheduleMo
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          personId: person.id,
-          personName: person.name,
           title,
-          startDateTime,
-          durationMinutes: parseInt(duration),
-          addMeetLink,
+          startTime: startDateTime,
+          durationMin: parseInt(duration),
+          withMeet: addMeetLink,
+          attendeeEmail: person.email ?? null,
         }),
       })
 

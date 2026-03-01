@@ -24,12 +24,12 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className="flex h-screen bg-slate-50 dark:bg-background">
       <Sidebar userName={profile?.name} userEmail={profile?.email ?? user.email} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top bar */}
-        <header className="h-14 border-b border-slate-100 bg-white flex items-center justify-end px-6 shrink-0">
+        <header className="h-14 border-b border-slate-100 dark:border-border bg-white dark:bg-card flex items-center justify-end px-6 shrink-0">
           <NotificationBell />
         </header>
 

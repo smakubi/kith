@@ -3,6 +3,8 @@ import twilio from 'twilio'
 const accountSid = process.env.TWILIO_ACCOUNT_SID!
 const authToken = process.env.TWILIO_AUTH_TOKEN!
 const twimlAppSid = process.env.TWILIO_TWIML_APP_SID!
+const apiKeySid = process.env.TWILIO_API_KEY_SID!
+const apiKeySecret = process.env.TWILIO_API_KEY_SECRET!
 
 export const twilioClient = twilio(accountSid, authToken)
 
@@ -19,7 +21,7 @@ export function generateVoiceToken(identity: string): string {
     incomingAllow: true,
   })
 
-  const token = new AccessToken(accountSid, authToken, {
+  const token = new AccessToken(accountSid, apiKeySid, apiKeySecret, {
     identity,
     ttl: 3600, // 1 hour
   })

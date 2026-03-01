@@ -116,14 +116,14 @@ export function NotificationBell() {
           notifications.map((n) => (
             <DropdownMenuItem key={n.id} asChild>
               <Link href={`/people/${n.person.id}`} className="flex items-start gap-3 p-3 cursor-pointer">
-                <div className={`mt-0.5 p-1.5 rounded-lg ${n.type === 'birthday' ? 'bg-amber-100' : 'bg-rose-100'}`}>
+                <div className={`mt-0.5 p-1.5 rounded-lg ${n.type === 'birthday' ? 'bg-amber-100 dark:bg-amber-900/30' : 'bg-rose-100 dark:bg-rose-900/30'}`}>
                   {n.type === 'birthday' ? (
                     <Cake className="h-3.5 w-3.5 text-amber-600" strokeWidth={1.8} />
                   ) : (
                     <AlertCircle className="h-3.5 w-3.5 text-rose-500" strokeWidth={1.8} />
                   )}
                 </div>
-                <p className="text-sm leading-snug text-slate-700">{n.message}</p>
+                <p className="text-sm leading-snug text-slate-700 dark:text-slate-300">{n.message}</p>
               </Link>
             </DropdownMenuItem>
           ))

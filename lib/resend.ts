@@ -11,6 +11,29 @@ interface ReminderEmailPayload {
   contactNames: string[]
 }
 
+interface DirectEmailPayload {
+  to: string
+  fromName: string
+  replyTo: string
+  subject: string
+  body: string
+}
+
+export async function sendDirectEmail({ to, fromName, replyTo, subject, body }: DirectEmailPayload) {
+  return resend.emails.send({
+    from: `${fromName} via Kith <messages@kith.app>`,
+    to,
+    reply_to: replyTo,
+    subject,
+    html: `<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
+      <div style="background: #ffffff; padding: 28px 24px; border: 1px solid #e2e8f0; border-radius: 16px;">
+        <p style="color: #0f172a; font-size: 16px; white-space: pre-wrap; margin: 0 0 24px;">${body.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+        <p style="color: #94a3b8; font-size: 12px; margin: 0;">Sent via <a href="${process.env.NEXT_PUBLIC_APP_URL ?? 'https://kith.app'}" style="color: #f43f5e; text-decoration: none;">Kith</a>. Reply directly to this email to respond to ${fromName}.</p>
+      </div>
+    </div>`,
+  })
+}
+
 export async function sendReminderEmail({ to, userName, contactNames }: ReminderEmailPayload) {
   const count = contactNames.length
   const contactList = contactNames

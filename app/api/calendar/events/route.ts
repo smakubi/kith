@@ -19,10 +19,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  // Retrieve stored Google OAuth tokens from Supabase
-  const { data: session } = await supabase.auth.getSession()
-  const providerToken = session?.session?.provider_token
-  const providerRefreshToken = session?.session?.provider_refresh_token
+  // Retrieve stored Google OAuth tokens from user metadata (persisted at sign-in)
+  const providerToken = user.user_metadata?.google_access_token as string | undefined
+  const providerRefreshToken = user.user_metadata?.google_refresh_token as string | undefined
 
   if (!providerToken) {
     return NextResponse.json(
@@ -31,7 +30,7 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { title, startTime, durationMin = 60, withMeet = false } = await req.json()
+  const { title, startTime, durationMin = 60, withMeet = false, attendeeEmail } = await req.json()
 
   if (!title || !startTime) {
     return NextResponse.json({ error: 'title and startTime are required' }, { status: 400 })
@@ -56,6 +55,7 @@ export async function POST(req: NextRequest) {
       summary: title,
       start: { dateTime: start.toISOString(), timeZone: 'UTC' },
       end: { dateTime: end.toISOString(), timeZone: 'UTC' },
+      ...(attendeeEmail ? { attendees: [{ email: attendeeEmail }] } : {}),
     }
 
     if (withMeet) {

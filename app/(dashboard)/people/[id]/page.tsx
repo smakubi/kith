@@ -11,13 +11,15 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { ActivityFeed } from '@/components/profile/activity-feed'
 import { CallUi } from '@/components/profile/call-ui'
+import { MessageUi } from '@/components/profile/message-ui'
+import { EmailUi } from '@/components/profile/email-ui'
 import { ScheduleModal } from '@/components/profile/schedule-modal'
 import { ReminderSettings } from '@/components/profile/reminder-settings'
 import { PersonForm } from '@/components/people/person-form'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
   ArrowLeft, MapPin, Calendar, Mail, Phone, Link2, Pencil,
-  MessageCircle, Users, CalendarPlus, Tag,
+  Users, CalendarPlus, Tag,
 } from 'lucide-react'
 import {
   initials, formatDate, formatBirthday, lastContactedColor, lastContactedLabel,
@@ -58,23 +60,6 @@ export default function PersonProfilePage() {
     }
     load()
   }, [id])
-
-  async function logInteraction(type: 'message') {
-    const { error } = await supabase.from('interactions').insert({
-      user_id: userId,
-      person_id: id,
-      type,
-      occurred_at: new Date().toISOString(),
-    })
-    if (!error) {
-      const { data } = await supabase
-        .from('interactions')
-        .select('*')
-        .eq('person_id', id)
-        .order('occurred_at', { ascending: false })
-      setInteractions(data ?? [])
-    }
-  }
 
   if (loading) {
     return (
@@ -156,14 +141,8 @@ export default function PersonProfilePage() {
               {/* Quick actions */}
               <div className="flex items-center gap-2 mt-4 flex-wrap">
                 <CallUi person={person} userId={userId} />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-2"
-                  onClick={() => logInteraction('message')}
-                >
-                  <MessageCircle className="h-3.5 w-3.5 text-sky-600" strokeWidth={1.8} /> Message
-                </Button>
+                <MessageUi person={person} userId={userId} />
+                <EmailUi person={person} userId={userId} />
                 <Button
                   variant="outline"
                   size="sm"

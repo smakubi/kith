@@ -61,6 +61,10 @@ export async function GET(req: NextRequest) {
 
       if (!userEmail) continue
 
+      // Check user's notification preference (stored in auth user metadata)
+      const { data: { user: authUser } } = await supabase.auth.admin.getUserById(userId)
+      if (authUser?.user_metadata?.notifications_enabled === false) continue
+
       const contactNames = reminders.map((r: any) => r.people?.name ?? 'Unknown').filter(Boolean)
 
       try {

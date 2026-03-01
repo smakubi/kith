@@ -10,7 +10,16 @@ export async function GET(request: Request) {
     const supabase = await createClient()
     const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
-    if (!error && data.user) {
+    if (!error && data.user && data.session) {
+      // Persist Google OAuth tokens in user metadata so they survive JWT refreshes
+      if (data.session.provider_token) {
+        await supabase.auth.updateUser({
+          data: {
+            google_access_token: data.session.provider_token,
+            google_refresh_token: data.session.provider_refresh_token ?? null,
+          },
+        })
+      }
       // Check if user has completed onboarding
       const { data: profile } = await supabase
         .from('users')

@@ -45,10 +45,10 @@ export function KpiCards({ stats }: KpiCardsProps) {
           <CardContent className="p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-slate-500 font-medium">{label}</p>
-                <p className="text-3xl font-bold text-slate-900 mt-1">{value}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{label}</p>
+                <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-1">{value}</p>
               </div>
-              <div className={`p-2.5 rounded-xl ${bg}`}>
+              <div className={`p-2.5 rounded-xl ${bg} dark:bg-opacity-20`}>
                 <Icon className={`w-5 h-5 ${color}`} strokeWidth={1.8} />
               </div>
             </div>

@@ -19,8 +19,8 @@ export default async function CirclesPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Circles</h1>
-        <p className="text-slate-500 text-sm mt-0.5">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Circles</h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">
           Drag contacts between circles to adjust relationship depth.
         </p>
       </div>

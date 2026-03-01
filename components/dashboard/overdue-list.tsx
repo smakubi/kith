@@ -44,13 +44,13 @@ export function OverdueList({ people }: OverdueListProps) {
         ) : (
           people.slice(0, 5).map((person) => (
             <Link key={person.id} href={`/people/${person.id}`}>
-              <div className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+              <div className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer">
                 <Avatar className="h-9 w-9">
                   <AvatarImage src={person.avatar_url ?? undefined} />
                   <AvatarFallback className="text-xs">{initials(person.name)}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-slate-900 truncate">{person.name}</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">{person.name}</p>
                   <p className="text-xs text-red-500 font-medium">
                     {lastContactedLabel(person.last_contacted_at)}
                   </p>

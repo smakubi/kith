@@ -31,7 +31,7 @@ export function PersonCard({ person, isDragOverlay = false }: PersonCardProps) {
       ref={setNodeRef}
       style={style}
       className={[
-        'group relative bg-white rounded-xl border border-slate-100 shadow-sm p-3',
+        'group relative bg-white dark:bg-card rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm p-3',
         'flex items-start gap-3 cursor-grab active:cursor-grabbing',
         'hover:border-rose-200 hover:shadow-md transition-all duration-150',
         isDragging ? 'opacity-30 scale-95' : '',
@@ -42,7 +42,7 @@ export function PersonCard({ person, isDragOverlay = false }: PersonCardProps) {
       <div
         {...listeners}
         {...attributes}
-        className="mt-0.5 text-slate-300 hover:text-slate-500 transition-colors shrink-0"
+        className="mt-0.5 text-slate-300 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors shrink-0"
       >
         <GripVertical className="h-4 w-4" strokeWidth={1.8} />
       </div>
@@ -57,7 +57,7 @@ export function PersonCard({ person, isDragOverlay = false }: PersonCardProps) {
       <div className="flex-1 min-w-0">
         <Link
           href={`/people/${person.id}`}
-          className="block font-medium text-sm text-slate-900 hover:text-rose-500 transition-colors truncate"
+          className="block font-medium text-sm text-slate-900 dark:text-slate-100 hover:text-rose-500 transition-colors truncate"
           onClick={(e) => e.stopPropagation()}
         >
           {person.name}
@@ -70,7 +70,7 @@ export function PersonCard({ person, isDragOverlay = false }: PersonCardProps) {
             </span>
           )}
           {person.location && (
-            <span className="flex items-center gap-0.5 text-[10px] text-slate-400">
+            <span className="flex items-center gap-0.5 text-[10px] text-slate-400 dark:text-slate-500">
               <MapPin className="h-2.5 w-2.5" strokeWidth={1.8} />
               {person.location}
             </span>
