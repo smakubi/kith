@@ -23,7 +23,7 @@ export async function sendDirectEmail({ to, fromName, replyTo, subject, body }: 
   return resend.emails.send({
     from: `${fromName} via Kith <messages@kith.app>`,
     to,
-    reply_to: replyTo,
+    replyTo,
     subject,
     html: `<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: #ffffff; padding: 28px 24px; border: 1px solid #e2e8f0; border-radius: 16px;">

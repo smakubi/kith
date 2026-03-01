@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { PeopleTable } from '@/components/people/people-table'
+import type { Person } from '@/types'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,11 +10,12 @@ export default async function PeoplePage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: people = [] } = await supabase
+  const { data: peopleData } = await supabase
     .from('people')
     .select('*')
     .eq('user_id', user.id)
     .order('name')
+  const people = (peopleData ?? []) as Person[]
 
   return (
     <div className="space-y-6 animate-fade-in">

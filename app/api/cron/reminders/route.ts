@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Group by user_id
-    const byUser = dueReminders.reduce<Record<string, typeof dueReminders>>((acc, r) => {
+    const byUser = (dueReminders as any[]).reduce<Record<string, any[]>>((acc: Record<string, any[]>, r: any) => {
       if (!acc[r.user_id]) acc[r.user_id] = []
       acc[r.user_id].push(r)
       return acc
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
     let emailsSent = 0
 
     for (const [userId, reminders] of Object.entries(byUser)) {
-      const firstReminder = reminders[0] as any
+      const firstReminder = (reminders as any[])[0]
       const userEmail = firstReminder.users?.email as string | null
       const userName = firstReminder.users?.name as string | null
 

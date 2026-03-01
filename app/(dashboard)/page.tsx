@@ -35,7 +35,7 @@ export default async function DashboardPage() {
   const startOfThisMonth = startOfMonth(now)
 
   const reachedOutThisMonth = new Set(
-    interactions
+    (interactions ?? [])
       .filter((i) => parseISO(i.occurred_at) >= startOfThisMonth)
       .map((i) => {
         // We'd need person_id here — fetch separately if needed
@@ -50,9 +50,9 @@ export default async function DashboardPage() {
     .eq('user_id', user.id)
     .gte('occurred_at', startOfThisMonth.toISOString())
 
-  const uniqueReachedThisMonth = new Set(monthInteractions.map((i) => i.person_id)).size
+  const uniqueReachedThisMonth = new Set((monthInteractions ?? []).map((i) => i.person_id)).size
 
-  const upcomingBirthdays = (people as Person[]).filter((p) => {
+  const upcomingBirthdays = ((people ?? []) as Person[]).filter((p) => {
     if (!p.birthday) return false
     const bday = parseISO(p.birthday)
     const thisYear = new Date(now.getFullYear(), bday.getMonth(), bday.getDate())
@@ -64,13 +64,13 @@ export default async function DashboardPage() {
     return diff >= 0 && diff <= 30
   })
 
-  const overdueContacts = (people as Person[]).filter((p) => {
+  const overdueContacts = ((people ?? []) as Person[]).filter((p) => {
     if (!p.last_contacted_at) return true
     return differenceInDays(now, parseISO(p.last_contacted_at)) >= 30
   })
 
   const stats: DashboardStats = {
-    totalPeople: people.length,
+    totalPeople: (people ?? []).length,
     reachedOutThisMonth: uniqueReachedThisMonth,
     upcomingBirthdays: upcomingBirthdays.length,
     overdueCheckIns: overdueContacts.length,
@@ -82,7 +82,7 @@ export default async function DashboardPage() {
     const monthDate = subMonths(now, i)
     const monthStart = startOfMonth(monthDate)
     const monthEnd = endOfMonth(monthDate)
-    const count = interactions.filter((interaction) => {
+    const count = (interactions ?? []).filter((interaction) => {
       const d = parseISO(interaction.occurred_at)
       return d >= monthStart && d <= monthEnd
     }).length
@@ -96,7 +96,7 @@ export default async function DashboardPage() {
     'Social Circle': 0,
     Reconnect: 0,
   }
-  ;(people as Person[]).forEach((p) => {
+  ;((people ?? []) as Person[]).forEach((p) => {
     if (p.circle && circleCounts[p.circle] !== undefined) {
       circleCounts[p.circle]++
     }
