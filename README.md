@@ -46,7 +46,7 @@ Kith is a full-stack web app that helps you nurture the relationships that matte
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/your-org/kith.git
+git clone https://github.com/smakubi/kith.git
 cd kith
 npm install
 ```
